@@ -9,15 +9,21 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Event extends Model
 {
+
+     protected $fillable = ['name','description','start_time','end_time','user_id'];
+
     use HasFactory;
+    
     public function user() : BelongsTo {
 
        return $this->belongsTo(User::class);
 
     }
+
     public function attendees() : HasMany {
 
        return $this->hasMany(Attendee::class);
 
     }
+
 }
