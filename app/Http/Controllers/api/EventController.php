@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\EventResource;
 use App\Models\Event;
 use Illuminate\Http\Request;
 
@@ -13,8 +14,10 @@ class EventController extends Controller
      */
     public function index()
     {
-        return Event::all();
+        // return new EventResource(collect(Event::all()));
         // return response()->json(["message" => "yes" , "test" => "true"]);
+
+        return EventResource::collection(Event::with('user' , 'attendees')->get());
     }
 
     /**
@@ -31,10 +34,10 @@ class EventController extends Controller
                 'end_time' => 'required|date|after:start_time'
 
             ]),
-            'user_id' => 1
+            'user_id' => 2
         ]);
-
-        return $event;
+        $event->load('user' , 'attendees');
+        return new EventResource($event);
 
     }
 
@@ -43,22 +46,36 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
-        return $event;
+        $event->load('user','attendees');
+        return new EventResource($event);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Event $event)
     {
-        //
+        $event->update(
+            $request->validate([
+               'name' => 'required|sometimes|string|max:255',
+               'description' => 'nullable|string',
+               'start_time' => 'sometimes|date',
+               'end_time' => 'sometimes|date'
+        ])
+    );
+    return $event;
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Event $event)
     {
-        //
+        $event->delete();
+
+        return response()->json([
+            'maseege' => 'This Event Deleted'
+        ]);
+        // return response(status:204);
     }
 }
