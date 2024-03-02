@@ -22,7 +22,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::post('Login' , [AuthController::class , 'Login']);
+Route::post('/Login' , [AuthController::class , 'Login']);
+
+Route::post('/Logout', [AuthController::class , 'Logout'])->middleware('auth:sanctum');
+
 
 
 Route::apiResource('events' , EventController::class);

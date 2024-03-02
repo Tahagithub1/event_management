@@ -39,10 +39,13 @@ class AuthController extends Controller
     }
 
 
-    public function Logout() {
+    public function Logout(Request $request) {
 
+       $request->user()->tokens()->delete();
 
-
+       return response()->json([
+           'massege' => 'شما از اکانت خود با موفقیت خارج شدین'
+       ]);
 
     }
 

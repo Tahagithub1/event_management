@@ -15,6 +15,11 @@ class EventController extends Controller
 
     private array $relations = ['user', 'attendees', 'attendees.user'];
 
+   public function __construct()
+   {
+     $this->middleware('auth:sanctum')->except(['index','show']);
+   }
+
     public function index()
     {
         // return new EventResource(collect(Event::all()));
@@ -64,7 +69,7 @@ class EventController extends Controller
 
             ]),
 
-            'user_id' => 2
+            'user_id' => $request->user()->id
 
         ]);
 
