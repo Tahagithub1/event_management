@@ -5,8 +5,10 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\EventResource;
 use App\Http\Traits\CanLoadRelationships;
+use App\Models\Attendee;
 use App\Models\Event;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class EventController extends Controller
 {
@@ -18,6 +20,7 @@ class EventController extends Controller
    public function __construct()
    {
      $this->middleware('auth:sanctum')->except(['index','show']);
+    //  $this->authorizeResource(Event::class ,'event');
    }
 
     public function index()
@@ -92,6 +95,14 @@ class EventController extends Controller
 
     public function update(Request $request, Event $event)
     {
+        // if(Gate::denies('update-event' , $event)){
+        //      abort(403,'You are autherazed to update this event');
+        // }
+
+        // $this->authorize('update-event' , $event);
+        $this->authorize('update' , $event);
+
+
         $event->update(
             $request->validate([
                'name' => 'required|sometimes|string|max:255',
