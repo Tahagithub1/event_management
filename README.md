@@ -1,4 +1,4 @@
-First, we login in to create a token for us
+First, we Login in and it creates a token for us
 
 ![Screenshot from 2024-06-07 23-28-47](https://github.com/Tahagithub1/event_management/assets/153533715/95146384-1b46-4bd0-8a7b-606a4b4182f8)
 
