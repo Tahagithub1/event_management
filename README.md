@@ -10,7 +10,8 @@ When the login operation is finished, we can create an event for the user in the
 
 ![Screenshot from 2024-06-07 23-30-55](https://github.com/Tahagithub1/event_management/assets/153533715/38ca1d51-06c3-433c-a4cf-6ec7726a9e4d)
 
-Now we can see the user and its event by filtering With includ=
+Now we can see the user and its event by filtering With include=
+
 Meanwhile, with this filter, everything is visible
 
 ![Screenshot from 2024-06-07 23-31-32](https://github.com/Tahagithub1/event_management/assets/153533715/11105067-1613-4511-aa18-82c6c1a0e694)
